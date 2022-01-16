@@ -24,7 +24,7 @@ struct ContentView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .border(Color.black, width: 2)
+                    .border(Color("keisenColor"), width: 2)
 
                     VStack(alignment: .leading) {
                         Text("作業内容")
@@ -35,7 +35,7 @@ struct ContentView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .border(Color.black, width: 2)
+                    .border(Color("keisenColor"), width: 2)
 
                     VStack(alignment: .leading) {
                         Text("危険予知")
@@ -46,7 +46,7 @@ struct ContentView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .border(Color.black, width: 2)
+                    .border(Color("keisenColor"), width: 2)
 
                     VStack(alignment: .leading) {
                         Text("安全対策")
@@ -57,7 +57,7 @@ struct ContentView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .border(Color.black, width: 2)
+                    .border(Color("keisenColor"), width: 2)
                 }
             }
 
@@ -80,6 +80,12 @@ struct ContentView: View {
 }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .preferredColorScheme(.dark)
+
+            ContentView()
+
+        }
     }
 }

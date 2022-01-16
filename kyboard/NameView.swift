@@ -4,6 +4,8 @@ struct NameView: View {
     @ObservedObject var data: MyData
     @State var temp = ""
     @State var sel1 = 0
+    //追記
+    let def = UserDefaults.standard
 
     var body: some View {
         HStack {
@@ -32,6 +34,9 @@ struct NameView: View {
                         Button(action: {
                             data.name.append(data.nameRireki[sel1])
                             sel1 = 0
+                            //追記
+                            def.set(data.name, forKey: "Test1" )
+                            
                         }) {
                             Text("名前を選択する")
                         }
@@ -50,6 +55,14 @@ struct NameView: View {
                 }
             }
             .frame(width: 400)
+            //追記
+            .onAppear {
+                let tmp = def.array(forKey: "Test1") as? [String]
+                if (tmp != nil) {
+                    data.name = tmp!
+                }
+
+            }
         }
     }
 }
