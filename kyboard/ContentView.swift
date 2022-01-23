@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var data = MyData()
+    //追記
+    let def = UserDefaults.standard
 
     var body: some View {
         NavigationView {
@@ -75,7 +77,20 @@ struct ContentView: View {
                                     }))
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        
+        //追記
+        .onAppear {
+            let tmp = def.array(forKey: "Test1") as? [String]
+            if (tmp != nil) {
+                data.name = tmp!
+                print("123")
+            }
+            let tmp2 = def.array(forKey: "Test2") as? [String]
+            if (tmp2 != nil) {
+                    data.nameRireki = tmp2!
+                print("abc")
+            }
+            print("hij")
+        }
     }
 }
 struct ContentView_Previews: PreviewProvider {

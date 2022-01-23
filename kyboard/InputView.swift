@@ -22,11 +22,13 @@ struct InputView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
             self.presentationMode.wrappedValue.dismiss()
+
         }, label: {
             Text("戻る")
         }))
     }
 }
+
 
 struct InputView_Previews: PreviewProvider {
     static var previews: some View {

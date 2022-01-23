@@ -4,6 +4,10 @@ struct NameView: View {
     @ObservedObject var data: MyData
     @State var temp = ""
     @State var sel1 = 0
+    @State var deleAlert = false
+
+    @State var indexSave: IndexSet = IndexSet()
+
     //追記
     let def = UserDefaults.standard
 
@@ -17,9 +21,25 @@ struct NameView: View {
             VStack {
                 HStack {
                     VStack {
-                        ForEach(0 ..< data.name.count, id: \.self) {i in
-                            Text(data.name[i])
+                        //EditButton()
+                        List {
+                            ForEach(0 ..< data.name.count, id: \.self) {i in
+                                Text(data.name[i])
+                            }
+                            //追記
+                            .onDelete { delList in
+                                deleAlert = true
+                                indexSave = delList
+
+                            }
+                            .alert(isPresented: $deleAlert) {
+                                Alert(title: Text("確認"), message: Text("削除"), primaryButton: .default(Text("削除する"), action: {
+                                    data.name.remove(atOffsets: indexSave)
+                                    def.set(data.name, forKey: "Test1" )
+                                }), secondaryButton: .cancel(Text("キャンセル")))
+                            }
                         }
+
                         Spacer()
                     }
                     
@@ -36,7 +56,6 @@ struct NameView: View {
                             sel1 = 0
                             //追記
                             def.set(data.name, forKey: "Test1" )
-                            
                         }) {
                             Text("名前を選択する")
                         }
@@ -49,20 +68,16 @@ struct NameView: View {
                         data.name.append(temp)
                         data.nameRireki.append(temp)
                         temp = ""
+                        //追記
+                        def.set(data.name, forKey: "Test1" )
+                        def.set(data.nameRireki, forKey: "Test2")
                     }) {
                         Text("名前を登録する")
                     }
                 }
             }
             .frame(width: 400)
-            //追記
-            .onAppear {
-                let tmp = def.array(forKey: "Test1") as? [String]
-                if (tmp != nil) {
-                    data.name = tmp!
-                }
 
-            }
         }
     }
 }
