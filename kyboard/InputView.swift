@@ -12,11 +12,11 @@ struct InputView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack{
+        VStack {
             NameView(data: data)
-            SagyoView(data: data)
-            KikenView(data: data)
-            TaisakuView(data: data)
+            //SagyoView(data: data)
+            //KikenView(data: data)
+            //TaisakuView(data: data)
             
         }
         .navigationBarBackButtonHidden(true)
