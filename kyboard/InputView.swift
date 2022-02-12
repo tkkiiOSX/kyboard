@@ -12,19 +12,63 @@ struct InputView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-            VStack {
-                NameView(data: data)
-                //SagyoView(data: data)
-                //KikenView(data: data)
-                //TaisakuView(data: data)
-            }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
+        TabView {
+            FirstView().tabItem {
+                Text("名前")
 
-            }, label: {
-                Text("戻る")
-            }))
+            }
+            SecondView().tabItem {
+                Text("作業")
+
+            }
+            ThirdView().tabItem {
+                Text("危険")
+
+            }
+            FourthView().tabItem {
+                Text("対策")
+
+            }
+        }
+
+        VStack {
+            NameView(data: data)
+            //SagyoView(data: data)
+            //KikenView(data: data)
+            //TaisakuView(data: data)
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+
+        }, label: {
+            Text("戻る")
+        }))
+
+    }
+}
+struct FirstView: View {
+    var body: some View {
+        Text("名前")
+
+    }
+}
+
+struct SecondView: View {
+    var body: some View {
+        Text("作業")
+    }
+}
+
+struct ThirdView: View {
+    var body: some View {
+        Text("危険")
+    }
+}
+
+struct FourthView: View {
+    var body: some View {
+        Text("対策")
     }
 }
 
