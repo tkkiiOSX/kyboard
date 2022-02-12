@@ -12,20 +12,19 @@ struct InputView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack {
-            NameView(data: data)
-            //SagyoView(data: data)
-            //KikenView(data: data)
-            //TaisakuView(data: data)
-            
-        }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
+            VStack {
+                NameView(data: data)
+                //SagyoView(data: data)
+                //KikenView(data: data)
+                //TaisakuView(data: data)
+            }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
 
-        }, label: {
-            Text("戻る")
-        }))
+            }, label: {
+                Text("戻る")
+            }))
     }
 }
 
