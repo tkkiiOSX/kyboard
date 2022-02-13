@@ -13,29 +13,22 @@ struct InputView: View {
 
     var body: some View {
         TabView {
-            FirstView().tabItem {
-                Text("名前")
-
-            }
-            SecondView().tabItem {
-                Text("作業")
-
-            }
-            ThirdView().tabItem {
-                Text("危険")
-
-            }
-            FourthView().tabItem {
-                Text("対策")
-
-            }
-        }
-
-        VStack {
             NameView(data: data)
-            //SagyoView(data: data)
-            //KikenView(data: data)
-            //TaisakuView(data: data)
+                .tabItem {
+                    Text("名前")
+                }
+            SagyoView(data: data)
+                .tabItem {
+                    Text("作業")
+                }
+            KikenView(data: data)
+                .tabItem {
+                    Text("危険")
+                }
+            TaisakuView(data: data)
+                .tabItem {
+                    Text("対策")
+                }
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
@@ -45,30 +38,6 @@ struct InputView: View {
             Text("戻る")
         }))
 
-    }
-}
-struct FirstView: View {
-    var body: some View {
-        Text("名前")
-
-    }
-}
-
-struct SecondView: View {
-    var body: some View {
-        Text("作業")
-    }
-}
-
-struct ThirdView: View {
-    var body: some View {
-        Text("危険")
-    }
-}
-
-struct FourthView: View {
-    var body: some View {
-        Text("対策")
     }
 }
 

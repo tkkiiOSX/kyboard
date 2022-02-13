@@ -12,7 +12,8 @@ struct NameView: View {
     let def = UserDefaults.standard
 
     var body: some View {
-        EditButton()
+        VStack {
+            EditButton()
             List {
                 Section(header:
                             Text("【氏名・血液型】")) {
@@ -27,41 +28,41 @@ struct NameView: View {
                     }
                 }
             }
-            .listStyle(SidebarListStyle())
+            //.listStyle(SidebarListStyle())
 
-        if data.nameRireki.count > 0 {
-            HStack {
-                Picker(selection: $sel1, label: Text("名前選択")) {
-                    ForEach(0 ..< data.nameRireki.count, id: \.self) {i in
-                        Text(data.nameRireki[i])
+            if data.nameRireki.count > 0 {
+                HStack {
+                    Picker(selection: $sel1, label: Text("名前選択")) {
+                        ForEach(0 ..< data.nameRireki.count, id: \.self) {i in
+                            Text(data.nameRireki[i])
+                        }
+                    }
+                    Button(action: {
+                        data.name.append(data.nameRireki[sel1])
+                        sel1 = 0
+                        //追記
+                        def.set(data.name, forKey: "Test1" )
+                    }) {
+                        Text("名前を選択する")
                     }
                 }
+            }
+
+            HStack {
+                TextField("氏名・血液型・＋ーを入力ください", text: $temp)
                 Button(action: {
-                    data.name.append(data.nameRireki[sel1])
-                    sel1 = 0
+                    data.name.append(temp)
+                    data.nameRireki.append(temp)
+                    temp = ""
                     //追記
                     def.set(data.name, forKey: "Test1" )
+                    def.set(data.nameRireki, forKey: "Test2")
                 }) {
-                    Text("名前を選択する")
+                    Text("名前を登録する")
                 }
-            }
-        }
-
-        HStack {
-            TextField("氏名・血液型・＋ーを入力ください", text: $temp)
-            Button(action: {
-                data.name.append(temp)
-                data.nameRireki.append(temp)
-                temp = ""
-                //追記
-                def.set(data.name, forKey: "Test1" )
-                def.set(data.nameRireki, forKey: "Test2")
-            }) {
-                Text("名前を登録する")
             }
         }
     }
-
 }
 
 struct NameView_Previews: PreviewProvider {
