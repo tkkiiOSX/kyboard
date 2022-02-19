@@ -13,5 +13,6 @@ class MyData: ObservableObject {
     @Published var taisaku: [String] = []
     @Published var taisakuRireki: [String] = []
 
+    @Published var yyyymmdd: Date = Date()
 
 }

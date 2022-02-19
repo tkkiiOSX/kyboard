@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct InputView: View {
-    @ObservedObject var data: MyData
+    @StateObject  var data: MyData
+    //@ObservedObject var data: MyData
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         TabView {
+            yyyymmddView(data: data)
+                .tabItem {
+                    Text("年月日")
+                }
             NameView(data: data)
                 .tabItem {
                     Text("名前")
@@ -32,6 +37,9 @@ struct InputView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
+            //キーと値の保存
+            //UserDefaults.standard.set(値, forKey: "キー")
+            //UserDefaults.standard.set(data, forKey: "data")
             self.presentationMode.wrappedValue.dismiss()
 
         }, label: {
