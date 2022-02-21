@@ -2,13 +2,12 @@ import SwiftUI
 
 struct NameView: View {
     @ObservedObject var data: MyData
-    @State var temp = ""
-    @State var sel1 = 0
+    @State var tempN = ""
+    @State var Nsel1 = 0
     @State var deleAlert = false
 
     @State var indexSave: IndexSet = IndexSet()
 
-    //追記
     let def = UserDefaults.standard
 
     var body: some View {
@@ -32,16 +31,16 @@ struct NameView: View {
 
             if data.nameRireki.count > 0 {
                 HStack {
-                    Picker(selection: $sel1, label: Text("名前選択")) {
+                    Picker(selection: $Nsel1, label: Text("名前選択")) {
                         ForEach(0 ..< data.nameRireki.count, id: \.self) {i in
                             Text(data.nameRireki[i])
                         }
                     }
                     Button(action: {
-                        data.name.append(data.nameRireki[sel1])
-                        sel1 = 0
+                        data.name.append(data.nameRireki[Nsel1])
+                        Nsel1 = 0
                         //追記
-                        def.set(data.name, forKey: "Test1" )
+                        def.set(data.name, forKey: "TestN" )
                     }) {
                         Text("名前を選択する")
                     }
@@ -49,14 +48,16 @@ struct NameView: View {
             }
 
             HStack {
-                TextField("氏名・血液型・＋ーを入力ください", text: $temp)
+                TextField("氏名・血液型・＋ーを入力ください", text: $tempN)
                 Button(action: {
-                    data.name.append(temp)
-                    data.nameRireki.append(temp)
-                    temp = ""
+                    data.name.append(tempN)
+                    data.nameRireki.append(tempN)
+                    tempN = ""
                     //追記
-                    def.set(data.name, forKey: "Test1" )
-                    def.set(data.nameRireki, forKey: "Test2")
+                    def.set(data.name, forKey: "TestN" )
+                    def.set(data.nameRireki, forKey: "TestN1")
+                    //データセーブ部分
+                    UserDefaults.standard.set(data.name, forKey: "NAME")
                 }) {
                     Text("名前を登録する")
                 }

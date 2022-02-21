@@ -14,10 +14,10 @@
 		EB04591E278AC33000896AA1 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB04591D278AC33000896AA1 /* InputView.swift */; };
 		EB045920278AC33D00896AA1 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB04591F278AC33D00896AA1 /* MyData.swift */; };
 		EB045922278AC34800896AA1 /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB045921278AC34800896AA1 /* NameView.swift */; };
-		EB045924278AC35500896AA1 /* SagyoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB045923278AC35500896AA1 /* SagyoView.swift */; };
 		EB045926278AC36100896AA1 /* KikenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB045925278AC36100896AA1 /* KikenView.swift */; };
 		EB045928278AC36C00896AA1 /* TaisakuVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB045927278AC36C00896AA1 /* TaisakuVIew.swift */; };
 		EB67524027C0E6AC00857289 /* yyyymmddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67523F27C0E6AC00857289 /* yyyymmddView.swift */; };
+		EBA1700A27C272AC0015D76A /* SagyoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1700927C272AC0015D76A /* SagyoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,10 +29,10 @@
 		EB04591D278AC33000896AA1 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		EB04591F278AC33D00896AA1 /* MyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyData.swift; sourceTree = "<group>"; };
 		EB045921278AC34800896AA1 /* NameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
-		EB045923278AC35500896AA1 /* SagyoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SagyoView.swift; sourceTree = "<group>"; };
 		EB045925278AC36100896AA1 /* KikenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KikenView.swift; sourceTree = "<group>"; };
 		EB045927278AC36C00896AA1 /* TaisakuVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaisakuVIew.swift; sourceTree = "<group>"; };
 		EB67523F27C0E6AC00857289 /* yyyymmddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yyyymmddView.swift; sourceTree = "<group>"; };
+		EBA1700927C272AC0015D76A /* SagyoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SagyoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 				EB04591F278AC33D00896AA1 /* MyData.swift */,
 				EB67523F27C0E6AC00857289 /* yyyymmddView.swift */,
 				EB045921278AC34800896AA1 /* NameView.swift */,
-				EB045923278AC35500896AA1 /* SagyoView.swift */,
+				EBA1700927C272AC0015D76A /* SagyoView.swift */,
 				EB045925278AC36100896AA1 /* KikenView.swift */,
 				EB045927278AC36C00896AA1 /* TaisakuVIew.swift */,
 				EB045913278ABB5F00896AA1 /* Assets.xcassets */,
@@ -165,7 +165,7 @@
 				EB045922278AC34800896AA1 /* NameView.swift in Sources */,
 				EB045910278ABB5D00896AA1 /* kyboardApp.swift in Sources */,
 				EB045926278AC36100896AA1 /* KikenView.swift in Sources */,
-				EB045924278AC35500896AA1 /* SagyoView.swift in Sources */,
+				EBA1700A27C272AC0015D76A /* SagyoView.swift in Sources */,
 				EB045920278AC33D00896AA1 /* MyData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,53 +2,66 @@ import SwiftUI
 
 struct SagyoView: View {
     @ObservedObject var data: MyData
-    @State var temp = ""
-    @State var sel2 = 0
+    @State var tempS = ""
+    @State var Ssel1 = 0
+    @State var deleAlert = false
+
+    @State var indexSave: IndexSet = IndexSet()
+
+    let def = UserDefaults.standard
 
     var body: some View {
-        HStack {
-            VStack {
-                Text("【作業内容】")
-                Spacer()
-            }
-            .frame(width: 200)
-            VStack {
-                HStack {
-                    VStack {
-                        ForEach(0 ..< data.sagyo.count, id: \.self) {i in
-                            Text(data.sagyo[i])
-                        }
-                        Spacer()
+        VStack {
+            EditButton()
+            List {
+                Section(header:
+                            Text("【作業内容】")) {
+                    ForEach(0 ..< data.sagyo.count, id: \.self) {i in
+                        Text(data.sagyo[i])
                     }
+                    .onDelete { indexDel in
+                        data.sagyo.remove(atOffsets: indexDel)
+                    }
+                    .onMove { src, dst in
+                        data.sagyo.move(fromOffsets: src, toOffset: dst)
+                    }
+                }
+            }
+            //.listStyle(SidebarListStyle())
 
-                }
-                if data.sgyoRireki.count > 0 {
-                    HStack {
-                        Picker(selection: $sel2, label: Text("作業内容を選択")) {
-                            ForEach(0 ..< data.sgyoRireki.count, id: \.self) {i in
-                                Text(data.sgyoRireki[i])
-                            }
-                        }
-                        Button(action: {
-                            data.sagyo.append(data.sgyoRireki[sel2])
-                            sel2 = 0
-                        }) {
-                            Text("作業内容を選択する")
+            if data.sagyoRireki.count > 0 {
+                HStack {
+                    Picker(selection: $Ssel1, label: Text("作業選択")) {
+                        ForEach(0 ..< data.sagyoRireki.count, id: \.self) {i in
+                            Text(data.sagyoRireki[i])
                         }
                     }
-                }
-                HStack {
-                    TextField("作業内容を入力ください", text: $temp)
                     Button(action: {
-                        data.sagyo.append(temp)
-                        data.sgyoRireki.append(temp)
-                        temp = ""
+                        data.sagyo.append(data.sagyoRireki[Ssel1])
+                        Ssel1 = 0
+                        //追記
+                        def.set(data.sagyo, forKey: "TestS" )
                     }) {
-                        Text("作業内容を登録する")
+                        Text("作業内容を選択する")
                     }
                 }
             }
-            .frame(width: 400)
+
+            HStack {
+                TextField("作業内容を入力ください", text: $tempS)
+                Button(action: {
+                    data.sagyo.append(tempS)
+                    data.sagyoRireki.append(tempS)
+                    tempS = ""
+                    //追記
+                    def.set(data.sagyo, forKey: "TestS" )
+                    def.set(data.sagyoRireki, forKey: "TestS1")
+                    //データセーブ部分
+                    UserDefaults.standard.set(data.sagyo, forKey: "SAGYO")
+                }) {
+                    Text("作業内容を登録する")
+                }
+            }
         }
     }
 }

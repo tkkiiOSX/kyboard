@@ -33,8 +33,6 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                     .border(Color("keisenColor"), width: 2)
 
-
-
                     VStack(alignment: .leading) {
                         Text("【氏名　血液型】")
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,6 +86,23 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                     .border(Color("keisenColor"), width: 2)
                 }
+                Button(action: {
+                    //保持データのクリア
+                    UserDefaults.standard.removeObject(forKey: "NAME")
+                    UserDefaults.standard.removeObject(forKey: "SAGYO")
+                    UserDefaults.standard.removeObject(forKey: "KIKEN")
+                    UserDefaults.standard.removeObject(forKey: "TAISAKU")
+                    data.name = []
+                    data.sagyo = []
+                    data.kiken = []
+                    data.taisaku = []
+                }) {
+                    Text("保持データのクリア(デバック用機能)")
+                        .padding(.all, 10)
+                        .foregroundColor(.black)
+                        .background(Color(white: 0.95))
+                        .cornerRadius(10)
+                }
             }
 
 
@@ -106,9 +121,9 @@ struct ContentView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         //追記
         .onAppear {
-            let tmp = def.array(forKey: "Test1") as? [String]
-            if (tmp != nil) {
-                data.name = tmp!
+            let tmp1 = def.array(forKey: "Test1") as? [String]
+            if (tmp1 != nil) {
+                data.name = tmp1!
                 print("123")
             }
             let tmp2 = def.array(forKey: "Test2") as? [String]
@@ -116,7 +131,39 @@ struct ContentView: View {
                     data.nameRireki = tmp2!
                 print("abc")
             }
+            let tmp3 = def.array(forKey: "Test1") as? [String]
+            if (tmp3 != nil) {
+                data.sagyo = tmp3!
+                print("123")
+            }
+            let tmp4 = def.array(forKey: "Test2") as? [String]
+            if (tmp4 != nil) {
+                    data.sagyoRireki = tmp4!
+                print("abc")
+            }
             print("hij")
+            //データロード部分
+            let Ntmp1 = UserDefaults.standard.stringArray(forKey: "NAME")
+            let Stmp2 = UserDefaults.standard.stringArray(forKey: "SAGYO")
+            let Ktmp3 = UserDefaults.standard.stringArray(forKey: "KIKEN")
+            let Ttmp4 = UserDefaults.standard.stringArray(forKey: "TAISAKU")
+
+            if Ntmp1 != nil {
+                data.name = Ntmp1!
+                print("データNAMEを読み込み成功")
+            }
+            if Stmp2 != nil {
+                data.sagyo = Stmp2!
+                print("データSAGYOを読み込み成功")
+            }
+            if Ktmp3 != nil {
+                data.kiken = Ktmp3!
+                print("データKIKENを読み込み成功")
+            }
+            if Ttmp4 != nil {
+                data.taisaku = Ttmp4!
+                print("データKIKENを読み込み成功")
+            }
         }
     }
 }
