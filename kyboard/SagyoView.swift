@@ -40,7 +40,7 @@ struct SagyoView: View {
                         data.sagyo.append(data.sagyoRireki[Ssel1])
                         Ssel1 = 0
                         //追記
-                        def.set(data.sagyo, forKey: "TestS" )
+                        //def.set(data.sagyo, forKey: "TestS" )
                     }) {
                         Text("作業内容を選択する")
                     }
@@ -56,6 +56,7 @@ struct SagyoView: View {
                     //追記
                     //def.set(data.sagyo, forKey: "TestS" )
                     //def.set(data.sagyoRireki, forKey: "TestS1")
+                    
                     //データセーブ部分
                     UserDefaults.standard.set(data.sagyo, forKey: "SAGYO")
                     UserDefaults.standard.set(data.sagyoRireki, forKey: "SAGYORIREKI")
