@@ -89,11 +89,15 @@ struct ContentView: View {
                 Button(action: {
                     //保持データのクリア
                     UserDefaults.standard.removeObject(forKey: "NAME")
+                    UserDefaults.standard.removeObject(forKey: "NAMERIREKI")
                     UserDefaults.standard.removeObject(forKey: "SAGYO")
+                    UserDefaults.standard.removeObject(forKey: "SAGYORIREKI")
                     UserDefaults.standard.removeObject(forKey: "KIKEN")
                     UserDefaults.standard.removeObject(forKey: "TAISAKU")
                     data.name = []
+                    data.nameRireki = []
                     data.sagyo = []
+                    data.sagyoRireki = []
                     data.kiken = []
                     data.taisaku = []
                 }) {
@@ -126,6 +130,7 @@ struct ContentView: View {
                 data.name = tmp1!
                 print("123")
             }
+
             let tmp2 = def.array(forKey: "Test2") as? [String]
             if (tmp2 != nil) {
                     data.nameRireki = tmp2!
@@ -144,7 +149,9 @@ struct ContentView: View {
             print("hij")
             //データロード部分
             let Ntmp1 = UserDefaults.standard.stringArray(forKey: "NAME")
+            let NRtmp1 = UserDefaults.standard.stringArray(forKey: "NAMERIREKI")
             let Stmp2 = UserDefaults.standard.stringArray(forKey: "SAGYO")
+            let SRtmp2 = UserDefaults.standard.stringArray(forKey: "SAGYORIREKI")
             let Ktmp3 = UserDefaults.standard.stringArray(forKey: "KIKEN")
             let Ttmp4 = UserDefaults.standard.stringArray(forKey: "TAISAKU")
 
@@ -152,9 +159,17 @@ struct ContentView: View {
                 data.name = Ntmp1!
                 print("データNAMEを読み込み成功")
             }
+            if NRtmp1 != nil {
+                data.nameRireki = NRtmp1!
+                print("データNAMERIREKIを読み込み成功")
+            }
             if Stmp2 != nil {
                 data.sagyo = Stmp2!
                 print("データSAGYOを読み込み成功")
+            }
+            if SRtmp2 != nil {
+                data.sagyoRireki = SRtmp2!
+                print("データSAGYORIREKIを読み込み成功")
             }
             if Ktmp3 != nil {
                 data.kiken = Ktmp3!

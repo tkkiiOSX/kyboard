@@ -54,10 +54,11 @@ struct SagyoView: View {
                     data.sagyoRireki.append(tempS)
                     tempS = ""
                     //追記
-                    def.set(data.sagyo, forKey: "TestS" )
-                    def.set(data.sagyoRireki, forKey: "TestS1")
+                    //def.set(data.sagyo, forKey: "TestS" )
+                    //def.set(data.sagyoRireki, forKey: "TestS1")
                     //データセーブ部分
                     UserDefaults.standard.set(data.sagyo, forKey: "SAGYO")
+                    UserDefaults.standard.set(data.sagyoRireki, forKey: "SAGYORIREKI")
                 }) {
                     Text("作業内容を登録する")
                 }

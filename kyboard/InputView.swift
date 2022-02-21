@@ -37,9 +37,7 @@ struct InputView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
-            //キーと値の保存
-            //UserDefaults.standard.set(値, forKey: "キー")
-            //UserDefaults.standard.set(data, forKey: "data")
+            
             self.presentationMode.wrappedValue.dismiss()
 
         }, label: {
