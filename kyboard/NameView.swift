@@ -40,7 +40,12 @@ struct NameView: View {
                         data.name.append(data.nameRireki[Nsel1])
                         Nsel1 = 0
                         //追記
-                        //def.set(data.name, forKey: "TestN" )
+                        def.set(data.name, forKey: "NAME" )
+                        def.set(data.nameRireki, forKey: "NAMERIREKI" )
+
+                        //データセーブ部分
+                        UserDefaults.standard.set(data.name, forKey: "NAME")
+                        UserDefaults.standard.set(data.nameRireki, forKey: "NAMERIREKI")
                     }) {
                         Text("名前を選択する")
                     }
@@ -54,9 +59,9 @@ struct NameView: View {
                     data.nameRireki.append(tempN)
                     tempN = ""
                     //追記
-                    //def.set(data.name, forKey: "TestN" )
-                    //def.set(data.nameRireki, forKey: "TestN1")
-        
+                    def.set(data.name, forKey: "NAME" )
+                    def.set(data.nameRireki, forKey: "NAMERIREKI")
+
                     //データセーブ部分
                     UserDefaults.standard.set(data.name, forKey: "NAME")
                     UserDefaults.standard.set(data.nameRireki, forKey: "NAMERIREKI")

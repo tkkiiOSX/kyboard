@@ -51,7 +51,8 @@ struct ContentView: View {
                         Text("【作業内容】")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.title)
-                        ForEach(0 ..< data.sagyo.count, id:\.self) {i in Text(data.sagyo[i])
+                        ForEach(0 ..< data.sagyo.count, id:\.self) {i in
+                            Text(data.sagyo[i])
                         }
                         .font(.title2)
                         Spacer()
@@ -64,7 +65,8 @@ struct ContentView: View {
                         Text("【危険予知】")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.title)
-                        ForEach(0 ..< data.kiken.count, id:\.self) {i in Text(data.kiken[i])
+                        ForEach(0 ..< data.kiken.count, id:\.self) {i in
+                            Text(data.kiken[i])
                         }
                         .font(.title2)
                         Spacer()
@@ -77,7 +79,8 @@ struct ContentView: View {
                         Text("【安全対策】")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.title)
-                        ForEach(0 ..< data.taisaku.count, id:\.self) {i in Text(data.taisaku[i])
+                        ForEach(0 ..< data.taisaku.count, id:\.self) {i in
+                            Text(data.taisaku[i])
                         }
                         .font(.title2)
                         Spacer()
@@ -93,13 +96,17 @@ struct ContentView: View {
                     UserDefaults.standard.removeObject(forKey: "SAGYO")
                     UserDefaults.standard.removeObject(forKey: "SAGYORIREKI")
                     UserDefaults.standard.removeObject(forKey: "KIKEN")
+                    UserDefaults.standard.removeObject(forKey: "KIKENRIREKI")
                     UserDefaults.standard.removeObject(forKey: "TAISAKU")
+                    UserDefaults.standard.removeObject(forKey: "TAISAKURIREKI")
                     data.name = []
                     data.nameRireki = []
                     data.sagyo = []
                     data.sagyoRireki = []
                     data.kiken = []
+                    data.kikenRireki = []
                     data.taisaku = []
+                    data.taisakuRireki = []
                 }) {
                     Text("保持データのクリア(デバック用機能)")
                         .padding(.all, 10)
@@ -125,25 +132,44 @@ struct ContentView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         //追記
         .onAppear {
-            let tmp1 = def.array(forKey: "Test1") as? [String]
+            let tmp1 = def.array(forKey: "NAME") as? [String]
             if (tmp1 != nil) {
                 data.name = tmp1!
                 print("123")
             }
-
-            let tmp2 = def.array(forKey: "Test2") as? [String]
+            let tmp2 = def.array(forKey: "NAMERIREKI") as? [String]
             if (tmp2 != nil) {
                     data.nameRireki = tmp2!
                 print("abc")
             }
-            let tmp3 = def.array(forKey: "Test1") as? [String]
+            let tmp3 = def.array(forKey: "SAGYO") as? [String]
             if (tmp3 != nil) {
                 data.sagyo = tmp3!
                 print("123")
             }
-            let tmp4 = def.array(forKey: "Test2") as? [String]
+            let tmp4 = def.array(forKey: "SAGYORIREKI") as? [String]
             if (tmp4 != nil) {
                     data.sagyoRireki = tmp4!
+                print("abc")
+            }
+            let tmp5 = def.array(forKey: "KIKEN") as? [String]
+            if (tmp5 != nil) {
+                data.kiken = tmp5!
+                print("123")
+            }
+            let tmp6 = def.array(forKey: "KIKENRIREKI") as? [String]
+            if (tmp6 != nil) {
+                    data.kikenRireki = tmp6!
+                print("abc")
+            }
+            let tmp7 = def.array(forKey: "TAISAKU") as? [String]
+            if (tmp7 != nil) {
+                data.taisaku = tmp7!
+                print("123")
+            }
+            let tmp8 = def.array(forKey: "TAISAKURIREKI") as? [String]
+            if (tmp8 != nil) {
+                    data.kikenRireki = tmp8!
                 print("abc")
             }
             print("hij")
@@ -153,7 +179,9 @@ struct ContentView: View {
             let Stmp2 = UserDefaults.standard.stringArray(forKey: "SAGYO")
             let SRtmp2 = UserDefaults.standard.stringArray(forKey: "SAGYORIREKI")
             let Ktmp3 = UserDefaults.standard.stringArray(forKey: "KIKEN")
+            let KRtmp3 = UserDefaults.standard.stringArray(forKey: "KIKENRIREKI")
             let Ttmp4 = UserDefaults.standard.stringArray(forKey: "TAISAKU")
+            let TRtmp4 = UserDefaults.standard.stringArray(forKey: "TAISAKURIREKI")
 
             if Ntmp1 != nil {
                 data.name = Ntmp1!
@@ -175,8 +203,16 @@ struct ContentView: View {
                 data.kiken = Ktmp3!
                 print("データKIKENを読み込み成功")
             }
+            if KRtmp3 != nil {
+                data.kikenRireki = KRtmp3!
+                print("データKIKENRIREKIを読み込み成功")
+            }
             if Ttmp4 != nil {
                 data.taisaku = Ttmp4!
+                print("データKIKENを読み込み成功")
+            }
+            if TRtmp4 != nil {
+                data.taisakuRireki = TRtmp4!
                 print("データKIKENを読み込み成功")
             }
         }
