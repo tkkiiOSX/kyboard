@@ -37,7 +37,7 @@ struct TaisakuView: View {
                         }
                     }
                     Button(action: {
-                        data.taisaku.append(data.nameRireki[Tsel1])
+                        data.taisaku.append(data.taisakuRireki[Tsel1])
                         Tsel1 = 0
                         //追記
                         def.set(data.taisaku, forKey: "TAISAKU" )
