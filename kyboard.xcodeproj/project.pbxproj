@@ -13,11 +13,8 @@
 		EB045917278ABB5F00896AA1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB045916278ABB5F00896AA1 /* Preview Assets.xcassets */; };
 		EB04591E278AC33000896AA1 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB04591D278AC33000896AA1 /* InputView.swift */; };
 		EB045920278AC33D00896AA1 /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB04591F278AC33D00896AA1 /* MyData.swift */; };
-		EB045922278AC34800896AA1 /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB045921278AC34800896AA1 /* NameView.swift */; };
+		EB23F2D827CB67F000DBB2F8 /* EditIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23F2D727CB67F000DBB2F8 /* EditIView.swift */; };
 		EB67524027C0E6AC00857289 /* yyyymmddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB67523F27C0E6AC00857289 /* yyyymmddView.swift */; };
-		EBA1700A27C272AC0015D76A /* SagyoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1700927C272AC0015D76A /* SagyoView.swift */; };
-		EBF1970627C612890099C0A3 /* KikenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF1970527C612890099C0A3 /* KikenView.swift */; };
-		EBF1970827C620000099C0A3 /* TaisakuVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF1970727C620000099C0A3 /* TaisakuVIew.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,11 +25,8 @@
 		EB045916278ABB5F00896AA1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EB04591D278AC33000896AA1 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		EB04591F278AC33D00896AA1 /* MyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyData.swift; sourceTree = "<group>"; };
-		EB045921278AC34800896AA1 /* NameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
+		EB23F2D727CB67F000DBB2F8 /* EditIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIView.swift; sourceTree = "<group>"; };
 		EB67523F27C0E6AC00857289 /* yyyymmddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yyyymmddView.swift; sourceTree = "<group>"; };
-		EBA1700927C272AC0015D76A /* SagyoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SagyoView.swift; sourceTree = "<group>"; };
-		EBF1970527C612890099C0A3 /* KikenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KikenView.swift; sourceTree = "<group>"; };
-		EBF1970727C620000099C0A3 /* TaisakuVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaisakuVIew.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,10 +64,7 @@
 				EB04591D278AC33000896AA1 /* InputView.swift */,
 				EB04591F278AC33D00896AA1 /* MyData.swift */,
 				EB67523F27C0E6AC00857289 /* yyyymmddView.swift */,
-				EB045921278AC34800896AA1 /* NameView.swift */,
-				EBA1700927C272AC0015D76A /* SagyoView.swift */,
-				EBF1970527C612890099C0A3 /* KikenView.swift */,
-				EBF1970727C620000099C0A3 /* TaisakuVIew.swift */,
+				EB23F2D727CB67F000DBB2F8 /* EditIView.swift */,
 				EB045913278ABB5F00896AA1 /* Assets.xcassets */,
 				EB045915278ABB5F00896AA1 /* Preview Content */,
 			);
@@ -161,11 +152,8 @@
 				EB67524027C0E6AC00857289 /* yyyymmddView.swift in Sources */,
 				EB04591E278AC33000896AA1 /* InputView.swift in Sources */,
 				EB045912278ABB5D00896AA1 /* ContentView.swift in Sources */,
-				EB045922278AC34800896AA1 /* NameView.swift in Sources */,
-				EBF1970827C620000099C0A3 /* TaisakuVIew.swift in Sources */,
-				EBF1970627C612890099C0A3 /* KikenView.swift in Sources */,
+				EB23F2D827CB67F000DBB2F8 /* EditIView.swift in Sources */,
 				EB045910278ABB5D00896AA1 /* kyboardApp.swift in Sources */,
-				EBA1700A27C272AC0015D76A /* SagyoView.swift in Sources */,
 				EB045920278AC33D00896AA1 /* MyData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

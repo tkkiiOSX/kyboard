@@ -21,7 +21,7 @@ struct yyyymmddView: View {
     var body: some View {
         VStack {
             Text(dateFormatter.string(from: data.yyyymmdd))
-            DatePicker(selection: $data.yyyymmdd, label: { Text("Date") })
+            DatePicker(selection: $data.yyyymmdd, label: { Text("年月日") })
                 .datePickerStyle(.wheel)
         }
 

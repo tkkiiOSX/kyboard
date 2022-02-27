@@ -18,32 +18,31 @@ struct InputView: View {
                 .tabItem {
                     Text("年月日")
                 }
-            NameView(data: data)
+            EditView(items: $data.name, itemRirekis: $data.nameRireki, msg1: "氏名・血液型・Rh+-", itemSave: "NAME", itemRirekiSave: "NAMERIREKI")
                 .tabItem {
-                    Text("名前")
+                    Text("氏名")
                 }
-            SagyoView(data: data)
+            EditView(items: $data.sagyo, itemRirekis: $data.sagyoRireki, msg1: "作業内容", itemSave: "SAGYO", itemRirekiSave: "SAGYORIREKI")
                 .tabItem {
                     Text("作業")
                 }
-            KikenView(data: data)
+            EditView(items: $data.kiken, itemRirekis: $data.kikenRireki, msg1: "危険予知", itemSave: "KIKEN", itemRirekiSave: "KIKENRIREKI")
                 .tabItem {
                     Text("危険")
                 }
-            TaisakuView(data: data)
+            EditView(items: $data.taisaku, itemRirekis: $data.taisakuRireki, msg1: "安全対策", itemSave: "TAISAKU", itemRirekiSave: "TAISAKURIREKI")
                 .tabItem {
                     Text("対策")
                 }
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
-            
             self.presentationMode.wrappedValue.dismiss()
-
         }, label: {
             Text("戻る")
         }))
-
+        .navigationTitle("編集画面")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
