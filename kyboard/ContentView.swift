@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UIKit
+import PDFKit
 
 struct ContentView: View {
     @ObservedObject var data = MyData()
@@ -18,7 +20,48 @@ struct ContentView: View {
         f.locale = Locale(identifier: "ja_JP")
         return f
     }
+
+    @State var rect: CGRect = .zero
+    @State var uiImage: UIImage? = nil
+    @State var flag = false
+
+    func makeData() -> Data {
+        let rect = CGRect(x: 0, y: 0, width: 595, height: 842)
+        //let rect = CGRect(x: 0, y: 0, width: 595 /2 , height: 842 /2)
+        let renderer = UIGraphicsPDFRenderer(bounds: rect)
+        let data = renderer.pdfData { context in
+            context.beginPage()
+
+            //PDF内容はここに書く
+            UIColor.black.setStroke()
+            let path = UIBezierPath(rect: CGRect(x: 10, y: 10, width: 595 - 20, height: 842 - 20))
+            path.stroke()
+
+            let txt1 = "KY-Bord"
+
+            let att1 = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
+            ]
+
+            txt1.draw(at: CGPoint(x: 50, y: 50), withAttributes: att1)
+            let txt2 = dateFormatter.string(from: self.data.yyyymmdd)
+
+
+            txt2.draw(at: CGPoint(x: 50, y: 100), withAttributes: att1)
+            for i in 0 ..< self.data.name.count {
+                let txt3 = self.data.name[i]
+                txt3.draw(at: CGPoint(x: 50, y: 30 * i + 150), withAttributes: att1)
+            }
+            for i in 0 ..< self.data.sagyo.count {
+                let txt3 = self.data.sagyo[i]
+                txt3.draw(at: CGPoint(x: 50, y: 30 * i + 150 + self.data.name.count * 30 + 30), withAttributes: att1)
+            }
+        }
+        return data
+    }
     var body: some View {
+        let tempfile = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("KY.pdf")
+
         NavigationView {
             ScrollView {
                 VStack(spacing: 10) {
@@ -89,6 +132,7 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                     .border(Color("keisenColor"), width: 2)
                 }
+
                 Button(action: {
                     //保持データのクリア
                     UserDefaults.standard.removeObject(forKey: "NAME")
@@ -114,6 +158,8 @@ struct ContentView: View {
                         .background(Color(white: 0.95))
                         .cornerRadius(10)
                 }
+
+
             }
 
 
@@ -123,11 +169,30 @@ struct ContentView: View {
 
             .navigationTitle("KYDoc（危険予知記録）")
             .navigationBarTitleDisplayMode(.large)
-            .navigationBarItems(trailing: NavigationLink(
-                                    destination: InputView(data: data),
-                                    label: {
-                                        Text("編集画面へ")
-                                    }))
+            .navigationBarItems(trailing:
+                HStack {
+                    Button(action: {
+                        let pdf = PDFDocument(data: makeData())
+                        pdf!.write(to: tempfile)
+                        flag = true
+                    }) {
+                        VStack(spacing: 0) {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.body)
+                            Text("PDF共有")
+                                .font(.caption)
+                        }
+                    }
+                    .sheet(isPresented: $flag) {
+                        ActivityView(items: [tempfile])
+                    }
+                    NavigationLink(
+                        destination: InputView(data: data),
+                        label: {
+                            Text("編集画面へ")
+                    })
+                }
+                                    )
         }
         .navigationViewStyle(StackNavigationViewStyle())
         //追記
@@ -218,6 +283,18 @@ struct ContentView: View {
         }
     }
 }
+
+struct ActivityView: UIViewControllerRepresentable {
+    var items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        return UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -229,3 +306,7 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
+
+
+
+
