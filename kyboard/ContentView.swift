@@ -37,24 +37,44 @@ struct ContentView: View {
             let path = UIBezierPath(rect: CGRect(x: 10, y: 10, width: 595 - 20, height: 842 - 20))
             path.stroke()
 
-            let txt1 = "KY-Bord"
-
+            let txtA = "KY-Board（危険予知記録）"
             let att1 = [
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
             ]
+            txtA.draw(at: CGPoint(x: 50, y: 50), withAttributes: att1)
 
-            txt1.draw(at: CGPoint(x: 50, y: 50), withAttributes: att1)
-            let txt2 = dateFormatter.string(from: self.data.yyyymmdd)
+            let txtY = "【年月日】"
+            let att2 = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
+            ]
+            txtY.draw(at: CGPoint(x: 50, y: 50 + 50), withAttributes: att2)
 
+            let txtYMD = dateFormatter.string(from: self.data.yyyymmdd)
 
-            txt2.draw(at: CGPoint(x: 50, y: 100), withAttributes: att1)
+            txtYMD.draw(at: CGPoint(x: 50, y: 150), withAttributes: att1)
+
+            let txtS = "【作業内容】"
+            let att3 = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
+            ]
+            txtS.draw(at: CGPoint(x: 50, y: 200), withAttributes: att3)
+
             for i in 0 ..< self.data.name.count {
-                let txt3 = self.data.name[i]
-                txt3.draw(at: CGPoint(x: 50, y: 30 * i + 150), withAttributes: att1)
+                let txtN = self.data.name[i]
+                txtN.draw(at: CGPoint(x: 50, y: 30 * i + 250), withAttributes: att1)
             }
+
             for i in 0 ..< self.data.sagyo.count {
-                let txt3 = self.data.sagyo[i]
-                txt3.draw(at: CGPoint(x: 50, y: 30 * i + 150 + self.data.name.count * 30 + 30), withAttributes: att1)
+                let txtS = self.data.sagyo[i]
+                txtS.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30), withAttributes: att1)
+            }
+            for i in 0 ..< self.data.kiken.count {
+                let txtK = self.data.kiken[i]
+                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30), withAttributes: att1)
+            }
+            for i in 0 ..< self.data.taisaku.count {
+                let txtK = self.data.taisaku[i]
+                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30 + self.data.kiken.count * 30 + 30), withAttributes: att1)
             }
         }
         return data
@@ -167,7 +187,7 @@ struct ContentView: View {
             .padding()
             //.font(.system(size: 25, weight: .regular, design: .monospaced))
 
-            .navigationTitle("KYDoc（危険予知記録）")
+            .navigationTitle("KY-Board（危険予知記録）")
             .navigationBarTitleDisplayMode(.large)
             .navigationBarItems(trailing:
                 HStack {
