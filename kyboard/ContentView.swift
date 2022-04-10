@@ -25,60 +25,7 @@ struct ContentView: View {
     @State var uiImage: UIImage? = nil
     @State var flag = false
 
-    func makeData() -> Data {
-        let rect = CGRect(x: 0, y: 0, width: 595, height: 842)
-        //let rect = CGRect(x: 0, y: 0, width: 595 /2 , height: 842 /2)
-        let renderer = UIGraphicsPDFRenderer(bounds: rect)
-        let data = renderer.pdfData { context in
-            context.beginPage()
 
-            //PDF内容はここに書く
-            UIColor.black.setStroke()
-            let path = UIBezierPath(rect: CGRect(x: 10, y: 10, width: 595 - 20, height: 842 - 20))
-            path.stroke()
-
-            let txtA = "KY-Board（危険予知記録）"
-            let att1 = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
-            ]
-            txtA.draw(at: CGPoint(x: 50, y: 50), withAttributes: att1)
-
-            let txtY = "【年月日】"
-            let att2 = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
-            ]
-            txtY.draw(at: CGPoint(x: 50, y: 50 + 50), withAttributes: att2)
-
-            let txtYMD = dateFormatter.string(from: self.data.yyyymmdd)
-
-            txtYMD.draw(at: CGPoint(x: 50, y: 150), withAttributes: att1)
-
-            let txtS = "【作業内容】"
-            let att3 = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
-            ]
-            txtS.draw(at: CGPoint(x: 50, y: 200), withAttributes: att3)
-
-            for i in 0 ..< self.data.name.count {
-                let txtN = self.data.name[i]
-                txtN.draw(at: CGPoint(x: 50, y: 30 * i + 250), withAttributes: att1)
-            }
-
-            for i in 0 ..< self.data.sagyo.count {
-                let txtS = self.data.sagyo[i]
-                txtS.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30), withAttributes: att1)
-            }
-            for i in 0 ..< self.data.kiken.count {
-                let txtK = self.data.kiken[i]
-                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30), withAttributes: att1)
-            }
-            for i in 0 ..< self.data.taisaku.count {
-                let txtK = self.data.taisaku[i]
-                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30 + self.data.kiken.count * 30 + 30), withAttributes: att1)
-            }
-        }
-        return data
-    }
     var body: some View {
         let tempfile = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("KY.pdf")
 
@@ -302,6 +249,140 @@ struct ContentView: View {
             }
         }
     }
+    //新PDF
+    func makeData() -> Data {
+        var ctx: UIGraphicsPDFRendererContext!
+        var att20: [NSAttributedString.Key: Any]!
+        var y1: CGFloat = 0
+        var y2: CGFloat = 0
+
+        let a4_w = 210 * 72 / 25.4
+        let a4_h = 297 * 72 / 25.4
+
+        func makeTable(lst: [String], lbl: String) {
+            for i in 0 ... lst.count {
+                if y2 + 30 > a4_h - 20 {
+                    UIColor.black.setStroke()
+                    UIBezierPath(rect: CGRect(x: 20, y: y1, width: a4_w - 40, height: y2 - y1)).stroke()
+                    ctx.beginPage()
+                    y1 = 20
+                    y2 = y1
+                }
+                NSAttributedString(string: i == 0 ? lbl : lst[i - 1], attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 5))
+                y2 += 30
+            }
+            UIColor.black.setStroke()
+            UIBezierPath(rect: CGRect(x: 20, y: y1, width: a4_w - 40, height: y2 - y1)).stroke()
+        }
+
+        let renderer = UIGraphicsPDFRenderer(bounds: CGRect(x: 0, y: 0, width: a4_w, height: a4_h))
+
+        let data = renderer.pdfData { content in
+            ctx = content
+            ctx.beginPage()
+
+            att20 = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20),
+                NSAttributedString.Key.foregroundColor: UIColor.black
+            ]
+
+            y1 = 20
+            y2 = y1
+
+            //タイトル
+            NSAttributedString(string: "KY-Bord（危険予知記録）", attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 10))
+            y2 += 40
+
+            //日付
+            y1 = y2 + 20
+            y2 = y1
+            NSAttributedString(string: "【年月日】", attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 10))
+            y2 += 40
+            NSAttributedString(string: dateFormatter.string(from: self.data.yyyymmdd), attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 10))
+            y2 += 40
+            UIBezierPath(rect: CGRect(x: 20, y: y1, width: a4_w - 40, height: y2 - y1)).stroke()
+
+            //表1
+            y1 = y2 + 15
+            y2 = y1
+            makeTable(lst: self.data.name, lbl: "【氏名　血液型】")
+
+            //表2
+            y1 = y2 + 15
+            y2 = y1
+            makeTable(lst: self.data.sagyo, lbl: "【作業内容】")
+
+            //表3
+            y1 = y2 + 15
+            y2 = y1
+            makeTable(lst: self.data.kiken, lbl: "【危険予知】")
+
+            //表4
+            y1 = y2 + 15
+            y2 = y1
+            makeTable(lst: self.data.taisaku, lbl: "【安全対策】")
+        }
+        return data
+    }
+
+    //旧PDF
+    /*func makeData() -> Data {
+        let rect = CGRect(x: 0, y: 0, width: 595, height: 842)
+
+        let renderer = UIGraphicsPDFRenderer(bounds: rect)
+        let data = renderer.pdfData { context in
+            context.beginPage()
+
+            //PDF内容はここに書く
+            UIColor.black.setStroke()
+            let path = UIBezierPath(rect: CGRect(x: 10, y: 10, width: 595 - 20, height: 842 * 2 - 20))
+            path.stroke()
+
+            let txtA = "KY-Board（危険予知記録）"
+            let att1 = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
+            ]
+            txtA.draw(at: CGPoint(x: 50, y: 50), withAttributes: att1)
+
+            let txtY = "【年月日】"
+            let att2 = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
+            ]
+            txtY.draw(at: CGPoint(x: 50, y: 50 + 50), withAttributes: att2)
+
+            let txtYMD = dateFormatter.string(from: self.data.yyyymmdd)
+
+            txtYMD.draw(at: CGPoint(x: 50, y: 150), withAttributes: att1)
+
+            let txtS = "【作業内容】"
+            let att3 = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
+            ]
+            txtS.draw(at: CGPoint(x: 50, y: 200), withAttributes: att3)
+
+            for i in 0 ..< self.data.name.count {
+                let txtN = self.data.name[i]
+                txtN.draw(at: CGPoint(x: 50, y: 30 * i + 250), withAttributes: att1)
+            }
+
+            for i in 0 ..< self.data.sagyo.count {
+                let txtS = self.data.sagyo[i]
+                txtS.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30), withAttributes: att1)
+            }
+            for i in 0 ..< self.data.kiken.count {
+                let txtK = self.data.kiken[i]
+                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30), withAttributes: att1)
+            }
+            for i in 0 ..< self.data.taisaku.count {
+                let txtK = self.data.taisaku[i]
+                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30 + self.data.kiken.count * 30 + 30), withAttributes: att1)
+            }
+        }
+        return data
+    }*/
+
+
+
 }
 
 struct ActivityView: UIViewControllerRepresentable {
