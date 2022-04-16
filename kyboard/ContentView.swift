@@ -24,144 +24,169 @@ struct ContentView: View {
     @State var rect: CGRect = .zero
     @State var uiImage: UIImage? = nil
     @State var flag = false
-
+    @State var deleAlertMain = false
 
     var body: some View {
         let tempfile = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("KY.pdf")
 
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 10) {
-                    VStack(alignment: .leading) {
-                        Text("【年月日】")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.title)
-                        Text(dateFormatter.string(from: data.yyyymmdd))
-                            .font(.title2)
+            NavigationView {
+                            ScrollView {
+                                            VStack(spacing: 10) {
+                                                VStack(alignment: .leading) {
+                                                    Text("【年月日】")
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                        .font(.title)
+                                                    Text(dateFormatter.string(from: data.yyyymmdd))
+                                                        .font(.title2)
+                                                }
+                                                .padding()
+                                                .frame(maxWidth: .infinity)
+                                                .border(Color("keisenColor"), width: 2)
+
+                                                VStack(alignment: .leading) {
+                                                    Text("【氏名　血液型】")
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                        .font(.title)
+                                                    ForEach(0 ..< data.name.count, id: \.self) {i in
+                                                        HStack{
+                                                            Text(String(format: "(%3d)", i + 1))
+                                                                .frame(width: 70,alignment: .trailing)
+                                                            Text(data.name[i])
+                                                        }
+                                                    }
+                                                    .font(.title2)
+                                                    Spacer()
+                                                }
+                                                .padding()
+                                                .frame(maxWidth: .infinity)
+                                                .border(Color("keisenColor"), width: 2)
+
+                                                VStack(alignment: .leading) {
+                                                    Text("【作業内容】")
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                        .font(.title)
+                                                    ForEach(0 ..< data.sagyo.count, id:\.self) {i in
+                                                        HStack{
+                                                            Text(String(format: "(%3d)", i + 1))
+                                                                .frame(width: 70)
+                                                            Text(data.sagyo[i])
+                                                        }
+
+                                                    }
+                                                    .font(.title2)
+                                                    Spacer()
+                                                }
+                                                .padding()
+                                                .frame(maxWidth: .infinity)
+                                                .border(Color("keisenColor"), width: 2)
+
+                                                VStack(alignment: .leading) {
+                                                    Text("【危険予知】")
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                        .font(.title)
+                                                    ForEach(0 ..< data.kiken.count, id:\.self) {i in
+                                                        HStack{
+                                                            Text(String(format: "(%3d)", i + 1))
+                                                                .frame(width: 70)
+                                                            Text(data.kiken[i])
+                                                        }
+
+                                                    }
+                                                    .font(.title2)
+                                                    Spacer()
+                                                }
+                                                .padding()
+                                                .frame(maxWidth: .infinity)
+                                                .border(Color("keisenColor"), width: 2)
+
+                                                VStack(alignment: .leading) {
+                                                    Text("【安全対策】")
+                                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                                        .font(.title)
+                                                    ForEach(0 ..< data.taisaku.count, id:\.self) {i in
+                                                        HStack{
+                                                            Text(String(format: "(%3d)", i + 1))
+                                                                .frame(width: 70)
+                                                            Text(data.taisaku[i])
+                                                        }
+
+                                                    }
+                                                    .font(.title2)
+                                                    Spacer()
+                                                }
+                                                .padding()
+                                                .frame(maxWidth: .infinity)
+                                                .border(Color("keisenColor"), width: 2)
+                                            }
+
+                                            Button(action: {
+                                                deleAlertMain = true
+                                            }) {
+                                                Text("全クリア")
+                                                    .padding(.all, 10)
+                                                    .foregroundColor(.black)
+                                                    .background(Color(white: 0.95))
+                                                    .cornerRadius(10)
+                                            }
+                                            .alert(isPresented: $deleAlertMain) {
+                                                Alert(title:  Text("確認"), message: Text("全ての項目を完全に削除しますか？"), primaryButton: .default(Text("はい"), action: {
+                                                    //保持データのクリア
+                                                                                                    UserDefaults.standard.removeObject(forKey: "NAME")
+                                                                                                    UserDefaults.standard.removeObject(forKey: "NAMERIREKI")
+                                                                                                    UserDefaults.standard.removeObject(forKey: "SAGYO")
+                                                                                                    UserDefaults.standard.removeObject(forKey: "SAGYORIREKI")
+                                                                                                    UserDefaults.standard.removeObject(forKey: "KIKEN")
+                                                                                                    UserDefaults.standard.removeObject(forKey: "KIKENRIREKI")
+                                                                                                    UserDefaults.standard.removeObject(forKey: "TAISAKU")
+                                                                                                    UserDefaults.standard.removeObject(forKey: "TAISAKURIREKI")
+                                                                                                    data.name = []
+                                                                                                    data.nameRireki = []
+                                                                                                    data.sagyo = []
+                                                                                                    data.sagyoRireki = []
+                                                                                                    data.kiken = []
+                                                                                                    data.kikenRireki = []
+                                                                                                    data.taisaku = []
+                                                                                                    data.taisakuRireki = []
+
+                                                }),
+                                                      secondaryButton: .cancel(Text("やめる"))
+                                                )
+                                            }
+
+                            }
+                        .padding()
+                        //.font(.system(size: 25, weight: .regular, design: .monospaced))
+
+                        .navigationTitle("KY-Board（危険予知記録）")
+                        .navigationBarTitleDisplayMode(.large)
+                        .navigationBarItems(trailing:
+                            HStack {
+                                Button(action: {
+                                    let pdf = PDFDocument(data: makeData())
+                                    pdf!.write(to: tempfile)
+                                    flag = true
+                                }) {
+                                    VStack(spacing: 0) {
+                                        Image(systemName: "square.and.arrow.up")
+                                            .font(.body)
+                                        Text("PDF共有")
+                                            .font(.caption)
+                                    }
+                                }
+                                .sheet(isPresented: $flag) {
+                                    ActivityView(items: [tempfile])
+                                }
+                                NavigationLink(
+                                    destination: InputView(data: data),
+                                    label: {
+                                        Text("編集画面へ")
+                                })
+                            }
+                                                )
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .border(Color("keisenColor"), width: 2)
-
-                    VStack(alignment: .leading) {
-                        Text("【氏名　血液型】")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.title)
-                        ForEach(0 ..< data.name.count, id: \.self) {i in
-                            Text(data.name[i])
-                        }
-                        .font(.title2)
-                        Spacer()
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .border(Color("keisenColor"), width: 2)
-
-                    VStack(alignment: .leading) {
-                        Text("【作業内容】")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.title)
-                        ForEach(0 ..< data.sagyo.count, id:\.self) {i in
-                            Text(data.sagyo[i])
-                        }
-                        .font(.title2)
-                        Spacer()
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .border(Color("keisenColor"), width: 2)
-
-                    VStack(alignment: .leading) {
-                        Text("【危険予知】")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.title)
-                        ForEach(0 ..< data.kiken.count, id:\.self) {i in
-                            Text(data.kiken[i])
-                        }
-                        .font(.title2)
-                        Spacer()
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .border(Color("keisenColor"), width: 2)
-
-                    VStack(alignment: .leading) {
-                        Text("【安全対策】")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.title)
-                        ForEach(0 ..< data.taisaku.count, id:\.self) {i in
-                            Text(data.taisaku[i])
-                        }
-                        .font(.title2)
-                        Spacer()
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .border(Color("keisenColor"), width: 2)
-                }
-
-                Button(action: {
-                    //保持データのクリア
-                    UserDefaults.standard.removeObject(forKey: "NAME")
-                    UserDefaults.standard.removeObject(forKey: "NAMERIREKI")
-                    UserDefaults.standard.removeObject(forKey: "SAGYO")
-                    UserDefaults.standard.removeObject(forKey: "SAGYORIREKI")
-                    UserDefaults.standard.removeObject(forKey: "KIKEN")
-                    UserDefaults.standard.removeObject(forKey: "KIKENRIREKI")
-                    UserDefaults.standard.removeObject(forKey: "TAISAKU")
-                    UserDefaults.standard.removeObject(forKey: "TAISAKURIREKI")
-                    data.name = []
-                    data.nameRireki = []
-                    data.sagyo = []
-                    data.sagyoRireki = []
-                    data.kiken = []
-                    data.kikenRireki = []
-                    data.taisaku = []
-                    data.taisakuRireki = []
-                }) {
-                    Text("保持データのクリア(デバック用機能)")
-                        .padding(.all, 10)
-                        .foregroundColor(.black)
-                        .background(Color(white: 0.95))
-                        .cornerRadius(10)
-                }
+                    .navigationViewStyle(StackNavigationViewStyle())
 
 
-            }
-
-
-
-            .padding()
-            //.font(.system(size: 25, weight: .regular, design: .monospaced))
-
-            .navigationTitle("KY-Board（危険予知記録）")
-            .navigationBarTitleDisplayMode(.large)
-            .navigationBarItems(trailing:
-                HStack {
-                    Button(action: {
-                        let pdf = PDFDocument(data: makeData())
-                        pdf!.write(to: tempfile)
-                        flag = true
-                    }) {
-                        VStack(spacing: 0) {
-                            Image(systemName: "square.and.arrow.up")
-                                .font(.body)
-                            Text("PDF共有")
-                                .font(.caption)
-                        }
-                    }
-                    .sheet(isPresented: $flag) {
-                        ActivityView(items: [tempfile])
-                    }
-                    NavigationLink(
-                        destination: InputView(data: data),
-                        label: {
-                            Text("編集画面へ")
-                    })
-                }
-                                    )
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
         //追記
         .onAppear {
             let tmp1 = def.array(forKey: "NAME") as? [String]
@@ -267,8 +292,11 @@ struct ContentView: View {
                     ctx.beginPage()
                     y1 = 20
                     y2 = y1
+                    NSAttributedString(string: lbl, attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 5))
+                    y2 += 30
                 }
-                NSAttributedString(string: i == 0 ? lbl : lst[i - 1], attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 5))
+
+                NSAttributedString(string: i == 0 ? lbl : String(format: "(%3d)", i) + "   \(lst[i - 1])", attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 5))
                 y2 += 30
             }
             UIColor.black.setStroke()
@@ -324,65 +352,6 @@ struct ContentView: View {
         }
         return data
     }
-
-    //旧PDF
-    /*func makeData() -> Data {
-        let rect = CGRect(x: 0, y: 0, width: 595, height: 842)
-
-        let renderer = UIGraphicsPDFRenderer(bounds: rect)
-        let data = renderer.pdfData { context in
-            context.beginPage()
-
-            //PDF内容はここに書く
-            UIColor.black.setStroke()
-            let path = UIBezierPath(rect: CGRect(x: 10, y: 10, width: 595 - 20, height: 842 * 2 - 20))
-            path.stroke()
-
-            let txtA = "KY-Board（危険予知記録）"
-            let att1 = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
-            ]
-            txtA.draw(at: CGPoint(x: 50, y: 50), withAttributes: att1)
-
-            let txtY = "【年月日】"
-            let att2 = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
-            ]
-            txtY.draw(at: CGPoint(x: 50, y: 50 + 50), withAttributes: att2)
-
-            let txtYMD = dateFormatter.string(from: self.data.yyyymmdd)
-
-            txtYMD.draw(at: CGPoint(x: 50, y: 150), withAttributes: att1)
-
-            let txtS = "【作業内容】"
-            let att3 = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)
-            ]
-            txtS.draw(at: CGPoint(x: 50, y: 200), withAttributes: att3)
-
-            for i in 0 ..< self.data.name.count {
-                let txtN = self.data.name[i]
-                txtN.draw(at: CGPoint(x: 50, y: 30 * i + 250), withAttributes: att1)
-            }
-
-            for i in 0 ..< self.data.sagyo.count {
-                let txtS = self.data.sagyo[i]
-                txtS.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30), withAttributes: att1)
-            }
-            for i in 0 ..< self.data.kiken.count {
-                let txtK = self.data.kiken[i]
-                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30), withAttributes: att1)
-            }
-            for i in 0 ..< self.data.taisaku.count {
-                let txtK = self.data.taisaku[i]
-                txtK.draw(at: CGPoint(x: 50, y: 30 * i + 250 + self.data.name.count * 30 + 30 + self.data.sagyo.count * 30 + 30 + self.data.kiken.count * 30 + 30), withAttributes: att1)
-            }
-        }
-        return data
-    }*/
-
-
-
 }
 
 struct ActivityView: UIViewControllerRepresentable {

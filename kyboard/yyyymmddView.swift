@@ -24,7 +24,7 @@ struct yyyymmddView: View {
             DatePicker(selection: $data.yyyymmdd, label: { Text("年月日") })
                 .datePickerStyle(.wheel)
         }
-
+        .padding()
     }
 }
 

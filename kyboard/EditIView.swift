@@ -30,7 +30,7 @@ struct EditView: View {
             .alert(isPresented: $deleAlert) {
                 Alert(
                     title: Text("確認"),
-                    message: Text("削除する？"),
+                    message: Text("この項目を削除しますか？"),
                     primaryButton: .default(Text("はい"), action: {
                         //保持データのクリア
                         UserDefaults.standard.removeObject(forKey: itemSave)
