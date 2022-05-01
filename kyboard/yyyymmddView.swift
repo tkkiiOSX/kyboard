@@ -17,14 +17,33 @@ struct yyyymmddView: View {
         f.locale = Locale(identifier: "ja_JP")
         return f
     }
+    @State var yyyymmddTemp: Date = Date()
 
     var body: some View {
         VStack {
-            Text(dateFormatter.string(from: data.yyyymmdd))
-            DatePicker(selection: $data.yyyymmdd, label: { Text("年月日") })
+            Button(action: {
+                data.yyyymmdd = yyyymmddTemp
+                UserDefaults.standard.set(data.yyyymmdd, forKey: "YMD")
+            }) {
+                Text("年月日時刻設定")
+            }
+            if data.yyyymmdd != nil {
+                Text(dateFormatter.string(from: data.yyyymmdd!))
+                    .font(.title2)
+            } else {
+                Text("")
+                    .font(.title2)
+            }
+
+            DatePicker(selection: $yyyymmddTemp, label: { Text("年月日時刻") })
                 .datePickerStyle(.wheel)
         }
         .padding()
+        .onAppear {
+            if data.yyyymmdd != nil {
+                yyyymmddTemp = data.yyyymmdd!
+            }
+        }
     }
 }
 

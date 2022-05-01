@@ -2,7 +2,7 @@ import SwiftUI
 
 class MyData: ObservableObject {
 
-    @Published var yyyymmdd: Date = Date()
+    @Published var yyyymmdd: Date?
 
     @Published var name: [String] = []
     @Published var nameRireki: [String] = []

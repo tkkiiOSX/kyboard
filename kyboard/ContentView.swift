@@ -36,8 +36,13 @@ struct ContentView: View {
                                                     Text("【年月日】")
                                                         .frame(maxWidth: .infinity, alignment: .leading)
                                                         .font(.title)
-                                                    Text(dateFormatter.string(from: data.yyyymmdd))
-                                                        .font(.title2)
+                                                    if data.yyyymmdd != nil {
+                                                        Text(dateFormatter.string(from: data.yyyymmdd!))
+                                                            .font(.title2)
+                                                    } else {
+                                                        Text("")
+                                                            .font(.title2)
+                                                    }
                                                 }
                                                 .padding()
                                                 .frame(maxWidth: .infinity)
@@ -139,6 +144,7 @@ struct ContentView: View {
                                                                                                     UserDefaults.standard.removeObject(forKey: "KIKENRIREKI")
                                                                                                     UserDefaults.standard.removeObject(forKey: "TAISAKU")
                                                                                                     UserDefaults.standard.removeObject(forKey: "TAISAKURIREKI")
+                                                                                                    data.yyyymmdd = nil
                                                                                                     data.name = []
                                                                                                     data.nameRireki = []
                                                                                                     data.sagyo = []
@@ -189,48 +195,8 @@ struct ContentView: View {
 
         //追記
         .onAppear {
-            let tmp1 = def.array(forKey: "NAME") as? [String]
-            if (tmp1 != nil) {
-                data.name = tmp1!
-                print("123")
-            }
-            let tmp2 = def.array(forKey: "NAMERIREKI") as? [String]
-            if (tmp2 != nil) {
-                    data.nameRireki = tmp2!
-                print("abc")
-            }
-            let tmp3 = def.array(forKey: "SAGYO") as? [String]
-            if (tmp3 != nil) {
-                data.sagyo = tmp3!
-                print("123")
-            }
-            let tmp4 = def.array(forKey: "SAGYORIREKI") as? [String]
-            if (tmp4 != nil) {
-                    data.sagyoRireki = tmp4!
-                print("abc")
-            }
-            let tmp5 = def.array(forKey: "KIKEN") as? [String]
-            if (tmp5 != nil) {
-                data.kiken = tmp5!
-                print("123")
-            }
-            let tmp6 = def.array(forKey: "KIKENRIREKI") as? [String]
-            if (tmp6 != nil) {
-                    data.kikenRireki = tmp6!
-                print("abc")
-            }
-            let tmp7 = def.array(forKey: "TAISAKU") as? [String]
-            if (tmp7 != nil) {
-                data.taisaku = tmp7!
-                print("123")
-            }
-            let tmp8 = def.array(forKey: "TAISAKURIREKI") as? [String]
-            if (tmp8 != nil) {
-                    data.kikenRireki = tmp8!
-                print("abc")
-            }
-            print("hij")
             //データロード部分
+            let YMDtmp = UserDefaults.standard.object(forKey: "YMD") as? Date
             let Ntmp1 = UserDefaults.standard.stringArray(forKey: "NAME")
             let NRtmp1 = UserDefaults.standard.stringArray(forKey: "NAMERIREKI")
             let Stmp2 = UserDefaults.standard.stringArray(forKey: "SAGYO")
@@ -240,6 +206,10 @@ struct ContentView: View {
             let Ttmp4 = UserDefaults.standard.stringArray(forKey: "TAISAKU")
             let TRtmp4 = UserDefaults.standard.stringArray(forKey: "TAISAKURIREKI")
 
+            if YMDtmp != nil {
+                data.yyyymmdd = YMDtmp
+                print("年月日を読み込み成功")
+            }
             if Ntmp1 != nil {
                 data.name = Ntmp1!
                 print("データNAMEを読み込み成功")
@@ -326,7 +296,7 @@ struct ContentView: View {
             y2 = y1
             NSAttributedString(string: "【年月日】", attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 10))
             y2 += 40
-            NSAttributedString(string: dateFormatter.string(from: self.data.yyyymmdd), attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 10))
+            NSAttributedString(string: dateFormatter.string(from: self.data.yyyymmdd!), attributes: att20).draw(at: CGPoint(x: 30, y: y2 + 10))
             y2 += 40
             UIBezierPath(rect: CGRect(x: 20, y: y1, width: a4_w - 40, height: y2 - y1)).stroke()
 
