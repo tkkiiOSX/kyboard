@@ -136,23 +136,25 @@ struct ContentView: View {
                                             .alert(isPresented: $deleAlertMain) {
                                                 Alert(title:  Text("確認"), message: Text("全ての項目を完全に削除しますか？"), primaryButton: .default(Text("はい"), action: {
                                                     //保持データのクリア
-                                                                                                    UserDefaults.standard.removeObject(forKey: "NAME")
-                                                                                                    UserDefaults.standard.removeObject(forKey: "NAMERIREKI")
-                                                                                                    UserDefaults.standard.removeObject(forKey: "SAGYO")
-                                                                                                    UserDefaults.standard.removeObject(forKey: "SAGYORIREKI")
-                                                                                                    UserDefaults.standard.removeObject(forKey: "KIKEN")
-                                                                                                    UserDefaults.standard.removeObject(forKey: "KIKENRIREKI")
-                                                                                                    UserDefaults.standard.removeObject(forKey: "TAISAKU")
-                                                                                                    UserDefaults.standard.removeObject(forKey: "TAISAKURIREKI")
-                                                                                                    data.yyyymmdd = nil
-                                                                                                    data.name = []
-                                                                                                    data.nameRireki = []
-                                                                                                    data.sagyo = []
-                                                                                                    data.sagyoRireki = []
-                                                                                                    data.kiken = []
-                                                                                                    data.kikenRireki = []
-                                                                                                    data.taisaku = []
-                                                                                                    data.taisakuRireki = []
+
+                                                    UserDefaults.standard.removeObject(forKey: "YMD")
+                                                    UserDefaults.standard.removeObject(forKey: "NAME")
+                                                    UserDefaults.standard.removeObject(forKey: "NAMERIREKI")
+                                                    UserDefaults.standard.removeObject(forKey: "SAGYO")
+                                                    UserDefaults.standard.removeObject(forKey: "SAGYORIREKI")
+                                                    UserDefaults.standard.removeObject(forKey: "KIKEN")
+                                                    UserDefaults.standard.removeObject(forKey: "KIKENRIREKI")
+                                                    UserDefaults.standard.removeObject(forKey: "TAISAKU")
+                                                    UserDefaults.standard.removeObject(forKey: "TAISAKURIREKI")
+                                                    data.yyyymmdd = nil
+                                                    data.name = []
+                                                    data.nameRireki = []
+                                                    data.sagyo = []
+                                                    data.sagyoRireki = []
+                                                    data.kiken = []
+                                                    data.kikenRireki = []
+                                                    data.taisaku = []
+                                                    data.taisakuRireki = []
 
                                                 }),
                                                       secondaryButton: .cancel(Text("やめる"))
@@ -185,7 +187,12 @@ struct ContentView: View {
                                 NavigationLink(
                                     destination: InputView(data: data),
                                     label: {
-                                        Text("編集画面へ")
+                                        VStack(spacing: 0) {
+                                            Image(systemName: "tablecells.badge.ellipsis")
+                                                .font(.body)
+                                            Text("編集画面")
+                                                .font(.caption)
+                                        }
                                 })
                             }
                                                 )

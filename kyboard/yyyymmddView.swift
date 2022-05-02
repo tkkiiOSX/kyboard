@@ -18,6 +18,7 @@ struct yyyymmddView: View {
         return f
     }
     @State var yyyymmddTemp: Date = Date()
+    @State var deleAlertMain = false
 
     var body: some View {
         VStack {
@@ -26,6 +27,10 @@ struct yyyymmddView: View {
                 UserDefaults.standard.set(data.yyyymmdd, forKey: "YMD")
             }) {
                 Text("年月日時刻設定")
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
             }
             if data.yyyymmdd != nil {
                 Text(dateFormatter.string(from: data.yyyymmdd!))
@@ -35,9 +40,28 @@ struct yyyymmddView: View {
                     .font(.title2)
             }
 
-            DatePicker(selection: $yyyymmddTemp, label: { Text("年月日時刻") })
+            DatePicker(selection: $yyyymmddTemp, label: { Text("年月日時刻選択")
+                    .padding()
+                     })
                 .datePickerStyle(.wheel)
+
+            Button(action: {
+                deleAlertMain = true
+
+            }) {
+                Text("現在時刻取得")
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            .alert(isPresented: $deleAlertMain) {
+                Alert(title: Text("確認"), message: Text("現在時刻に置き換えますか？"), primaryButton: .default(Text("はい"), action: {
+                    self.data.yyyymmdd = Date()
+                }), secondaryButton: .cancel(Text("やめる")))
+            }
         }
+        .font(.system(size: 20, weight: .regular, design: .monospaced))
         .padding()
         .onAppear {
             if data.yyyymmdd != nil {

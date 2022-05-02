@@ -78,12 +78,19 @@ struct EditView: View {
                         def.set(itemRirekis, forKey: itemRirekiSave)
                     }) {
                         Text("\(msg1)を選択する")
+                            .padding(.all, 10)
+                            .foregroundColor(.white)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .padding()
                     }
                 }
             }
 
             HStack {
                 TextField("\(msg1)を入力ください", text: $tempN)
+                    .padding(.all, 10)
+                    .background(Color.white)
                 Button(action: {
                     if tempN != "" {
                         //data.name.append(tempN)
@@ -97,6 +104,11 @@ struct EditView: View {
                     } 
                 }) {
                     Text("\(msg1)を登録する")
+                        .padding(.all, 10)
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .padding()
                 }
             }
         }
