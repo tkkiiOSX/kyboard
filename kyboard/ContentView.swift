@@ -132,6 +132,7 @@ struct ContentView: View {
                                                     .foregroundColor(.black)
                                                     .background(Color(white: 0.95))
                                                     .cornerRadius(10)
+                                                    .shadow(color: .gray, radius: 3, x: 10, y: 10)   
                                             }
                                             .alert(isPresented: $deleAlertMain) {
                                                 Alert(title:  Text("確認"), message: Text("全ての項目を完全に削除しますか？"), primaryButton: .default(Text("はい"), action: {

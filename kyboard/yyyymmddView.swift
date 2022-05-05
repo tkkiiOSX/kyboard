@@ -31,6 +31,7 @@ struct yyyymmddView: View {
                     .foregroundColor(.white)
                     .background(Color.blue)
                     .cornerRadius(10)
+                    .shadow(color: .gray, radius: 3, x: 10, y: 10)   
             }
             if data.yyyymmdd != nil {
                 Text(dateFormatter.string(from: data.yyyymmdd!))
@@ -51,9 +52,10 @@ struct yyyymmddView: View {
             }) {
                 Text("現在時刻取得")
                     .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
+                    .foregroundColor(.black)
+                    .background(Color.white)
                     .cornerRadius(10)
+                    .shadow(color: .gray, radius: 3, x: 10, y: 10)
             }
             .alert(isPresented: $deleAlertMain) {
                 Alert(title: Text("確認"), message: Text("現在時刻に置き換えますか？"), primaryButton: .default(Text("はい"), action: {
