@@ -22,47 +22,60 @@ struct yyyymmddView: View {
 
     var body: some View {
         VStack {
-            Button(action: {
-                data.yyyymmdd = yyyymmddTemp
-                UserDefaults.standard.set(data.yyyymmdd, forKey: "YMD")
-            }) {
-                Text("年月日時刻設定")
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .shadow(color: .gray, radius: 3, x: 10, y: 10)   
-            }
             if data.yyyymmdd != nil {
                 Text(dateFormatter.string(from: data.yyyymmdd!))
-                    .font(.title2)
+                    .font(.title)
             } else {
-                Text("")
-                    .font(.title2)
+                Text(" ")
+                    .font(.title)
             }
-
-            DatePicker(selection: $yyyymmddTemp, label: { Text("年月日時刻選択")
+            DatePicker(selection: $yyyymmddTemp, displayedComponents: [.date]) {
+                Text("年月日選択")
                     .padding()
-                     })
+            }
                 .datePickerStyle(.wheel)
 
-            Button(action: {
-                deleAlertMain = true
-
-            }) {
-                Text("現在時刻取得")
+            DatePicker(selection: $yyyymmddTemp, displayedComponents: [.hourAndMinute]) {
+                Text("時刻選択")
                     .padding()
-                    .foregroundColor(.black)
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .shadow(color: .gray, radius: 3, x: 10, y: 10)
             }
-            .alert(isPresented: $deleAlertMain) {
-                Alert(title: Text("確認"), message: Text("現在時刻に置き換えますか？"), primaryButton: .default(Text("はい"), action: {
-                    self.data.yyyymmdd = Date()
-                }), secondaryButton: .cancel(Text("やめる")))
+                .datePickerStyle(.wheel)
+            HStack {
+                Spacer()
+                Button(action: {
+
+                    data.yyyymmdd = yyyymmddTemp
+
+                    UserDefaults.standard.set(data.yyyymmdd, forKey: "YMD")
+
+                }) {
+                    Text("年月日時刻設定")
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 3, x: 10, y: 10)
+                }
+                Spacer()
+                Button(action: {
+                    deleAlertMain = true
+                }) {
+                    Text("現在時刻取得")
+                        .padding()
+                        .foregroundColor(.black)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 3, x: 10, y: 10)
+                }
+                .alert(isPresented: $deleAlertMain) {
+                    Alert(title: Text("確認"), message: Text("現在時刻に置き換えますか？"), primaryButton:
+                                .default(Text("はい"), action: {
+                        self.data.yyyymmdd = Date()
+                    }), secondaryButton: .cancel(Text("やめる")))
+                }
+                Spacer()
             }
-        }
+                    }
         .font(.system(size: 20, weight: .regular, design: .monospaced))
         .padding()
         .onAppear {

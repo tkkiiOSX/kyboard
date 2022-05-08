@@ -167,6 +167,7 @@ struct ContentView: View {
                         //.font(.system(size: 25, weight: .regular, design: .monospaced))
 
                         .navigationTitle("KY-Board（危険予知記録）")
+                        .shadow(color: .gray, radius: 3, x: 5, y: 5)
                         .navigationBarTitleDisplayMode(.large)
                         .navigationBarItems(trailing:
                             HStack {

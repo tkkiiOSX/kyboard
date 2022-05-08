@@ -26,7 +26,7 @@ struct EditView: View {
                     .foregroundColor(.black)
                     .background(Color(white: 0.95))
                     .cornerRadius(10)
-                    .shadow(color: .gray, radius: 3, x: 10, y: 10)   
+                    .shadow(color: .gray, radius: 3, x: 10, y: 10)
             }
             .alert(isPresented: $deleAlert) {
                 Alert(
@@ -85,6 +85,7 @@ struct EditView: View {
                             .cornerRadius(10)
                             .padding()
                             .shadow(color: .gray, radius: 3, x: 10, y: 10)
+
                     }
                 }
             }
