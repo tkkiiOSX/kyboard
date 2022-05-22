@@ -22,7 +22,7 @@ struct InputView: View {
                     Image(systemName: "tablecells.badge.ellipsis")
                         .font(.body)
                 }
-            EditView(items: $data.name, itemRirekis: $data.nameRireki, msg1: "氏名・血液型・Rh+-", itemSave: "NAME", itemRirekiSave: "NAMERIREKI")
+            EditView(items: $data.name, itemRirekis: $data.nameRireki, msg1: "作業者氏名・血液型・Rh+-", itemSave: "NAME", itemRirekiSave: "NAMERIREKI")
                 .tabItem {
                     Text("氏名")
                     Image(systemName: "tablecells.badge.ellipsis")

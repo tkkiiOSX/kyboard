@@ -51,7 +51,7 @@ struct ContentView: View {
                                                 .border(Color("keisenColor"), width: 2)
 
                                                 VStack(alignment: .leading) {
-                                                    Text("【氏名　血液型】")
+                                                    Text("【作業者氏名　血液型】")
                                                         .frame(maxWidth: .infinity, alignment: .leading)
                                                         .font(.title)
                                                     ForEach(0 ..< data.name.count, id: \.self) {i in
