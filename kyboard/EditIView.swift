@@ -16,6 +16,9 @@ struct EditView: View {
     var itemSave: String
     var itemRirekiSave: String
 
+    @State var  inputText = 20
+    @State var  mojiAlert = false
+
     var body: some View {
         VStack {
             Button(action: {
@@ -91,11 +94,26 @@ struct EditView: View {
             }
 
             HStack {
-                TextField("\(msg1)を入力ください", text: $tempN)
+                TextField("\(msg1)を入力ください（20文字以内）", text: $tempN) { flag in
+                    if flag == true {
+                        inputText = 20 - tempN.count
+                    }
+                }
+
+                .onChange(of: tempN) { newValue in
+                    inputText = 20 - newValue.count
+                }
+
+
                     .padding(.all, 10)
                     .background(Color.white)
+                Text("\(inputText)")
+
                 Button(action: {
-                    if tempN != "" {
+                    if tempN.count > 20 {
+                        mojiAlert = true
+                    }
+                    else if tempN.count > 0 {
                         //data.name.append(tempN)
                         items.append(tempN)
                         //data.nameRireki.append(tempN)
@@ -104,7 +122,7 @@ struct EditView: View {
                         //追記
                         def.set(items, forKey: itemSave)
                         def.set(itemRirekis, forKey: itemRirekiSave)
-                    } 
+                    }
                 }) {
                     Text("\(msg1)を登録する")
                         .padding(.all, 10)
@@ -114,6 +132,10 @@ struct EditView: View {
                         .padding()
                         .shadow(color: .gray, radius: 3, x: 10, y: 10)   
                 }
+                .alert(isPresented: $mojiAlert) {
+                    Alert(title: Text("注意"), message: Text("文字数が超えています。"), dismissButton: .default(Text("閉じる")))
+                }
+
             }
         }
         .navigationBarHidden(false)

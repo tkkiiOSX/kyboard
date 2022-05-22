@@ -25,7 +25,9 @@ struct ContentView: View {
     @State var uiImage: UIImage? = nil
     @State var flag = false
     @State var deleAlertMain = false
+    @State var yyyymmdd = ""
 
+    @State var showingAlert = false
     var body: some View {
         let tempfile = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("KY.pdf")
 
@@ -164,25 +166,41 @@ struct ContentView: View {
 
                             }
                         .padding()
-                        //.font(.system(size: 25, weight: .regular, design: .monospaced))
+
 
                         .navigationTitle("KY-Board（危険予知記録）")
                         .shadow(color: .gray, radius: 3, x: 5, y: 5)
                         .navigationBarTitleDisplayMode(.large)
                         .navigationBarItems(trailing:
                             HStack {
-                                Button(action: {
+                            //追記
+                            Button(action: {
+                                if data.yyyymmdd == nil {
+
+                                    self.showingAlert = true
+
+                                } else {
+
                                     let pdf = PDFDocument(data: makeData())
                                     pdf!.write(to: tempfile)
                                     flag = true
-                                }) {
-                                    VStack(spacing: 0) {
-                                        Image(systemName: "square.and.arrow.up")
-                                            .font(.body)
-                                        Text("PDF共有")
-                                            .font(.caption)
-                                    }
                                 }
+
+                            }) {
+                                VStack(spacing: 0) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .font(.body)
+                                    Text("PDF共有")
+                                        .font(.caption)
+                                }.alert(isPresented: $showingAlert) {
+                                    Alert(title:  Text("確認"), message: Text("日時が設定されていません。設定しますか？"), primaryButton: .default(Text("はい"), action: {
+
+                                        self.data.yyyymmdd = Date()
+                                    }),
+                                          secondaryButton: .cancel(Text("やめる"))
+                                    )
+                                 }
+                            }//追記末
                                 .sheet(isPresented: $flag) {
                                     ActivityView(items: [tempfile])
                                 }
